@@ -1,5 +1,5 @@
 <#PSScriptInfo
-.VERSION 1.0.0
+.VERSION 1.0.1
 .GUID 346b6ee5-a5f4-498f-b852-0f129bf6ec21
 .AUTHOR Ronald Bode (iRon)
 .DESCRIPTION Deserializes a object.
@@ -22,8 +22,8 @@ Function ConvertFrom-Expression {
 		Deserializes a object.
 
 	.DESCRIPTION
-		The ConvertoFrom-Expression cmdlet creates an object from a expression
-		string, command scriptblock or file.
+		The ConvertoFrom-Expression cmdlet convert an object from a formatted
+		expression string, command scriptblock or file.
 
 	.INPUTS
 		Sting or ScriptBlock. Each String or ScriptBlock provided through the
@@ -73,7 +73,7 @@ Function ConvertFrom-Expression {
 				If ($NoEnumerate) {$Expression = "@{e=$Expression}"}
 				If ($Expression -isnot [ScriptBlock]) {$Expression = [ScriptBlock]::Create($Expression)}
 				$Object = Invoke-Command -NoNewScope:$NoNewScope $Expression
-				If ($NoEnumerate) {Write-Output -NoEnumerate $Object['e']}
+				If ($NoEnumerate) {Write-Output $Object['e'] -NoEnumerate}
 				Else {Write-Output $Object}
 			} Catch {$PSCmdlet.WriteError($_)}
 		}
